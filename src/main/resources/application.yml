@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: LinguaLearn # From application.properties
+firebase:
+  project:
+    id: llm-lingualearn # 기존 firebase.project.id
+  service:
+    account:
+      path: llm-lingualearn-firebase-adminsdk-fbsvc-730ed32982.json # 기존 firebase.service.account.path
+gemini:
+  api:
+    key: ${GEMINI_API_KEY} # Need to set this as environment variable
+    url: ${GEMINI_API_URL} # Need to set this as environment variable

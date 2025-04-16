@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TOP 10 랭킹</title>
+    <link rel="stylesheet" type="text/css" href="/css/ranking.css" />
+</head>
+<body>
+<div class="ranking-container">
+    <div class="ranking-title">🔥 TOP 10 랭킹 🔥</div>
+
+    <div th:each="rank, stat : ${rankings}">
+        <div th:if="${stat.index == 0}" class="rank-card rank-1">
+            <div class="rank-medal">🥇</div>
+            <div class="rank-info">
+                <div class="rank-email" th:text="${rank.email}"></div>
+                <div class="rank-score" th:text="${rank.score + ' 점'}"></div>
+            </div>
+        </div>
+        <div th:if="${stat.index == 1}" class="rank-card rank-2">
+            <div class="rank-medal">🥈</div>
+            <div class="rank-info">
+                <div class="rank-email" th:text="${rank.email}"></div>
+                <div class="rank-score" th:text="${rank.score + ' 점'}"></div>
+            </div>
+        </div>
+        <div th:if="${stat.index == 2}" class="rank-card rank-3">
+            <div class="rank-medal">🥉</div>
+            <div class="rank-info">
+                <div class="rank-email" th:text="${rank.email}"></div>
+                <div class="rank-score" th:text="${rank.score + ' 점'}"></div>
+            </div>
+        </div>
+
+        <!-- 4위부터 10위까지 -->
+        <div th:if="${stat.index >= 3}" class="rank-card rank-default">
+            <div class="rank-medal" th:text="${stat.index + 1} + '위'"></div>
+            <div class="rank-info">
+                <div class="rank-email" th:text="${rank.email}"></div>
+                <div class="rank-score" th:text="${rank.score + ' 점'}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

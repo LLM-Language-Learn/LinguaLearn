@@ -1,0 +1,70 @@
+body {
+    font-family: 'Pretendard', sans-serif;
+    background-color: #f2f4f6;
+    padding: 2rem;
+}
+
+.ranking-container {
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.ranking-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.rank-card {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rank-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.rank-medal {
+    font-size: 1.8rem;
+    margin-right: 1rem;
+}
+
+.rank-info {
+    flex-grow: 1;
+}
+
+.rank-email {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.rank-score {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* 1위~3위 전용 스타일 */
+.rank-1 {
+    background-color: #fff6cc;
+}
+
+.rank-2 {
+    background-color: #e5e5e5;
+}
+
+.rank-3 {
+    background-color: #f5e1d8;
+}
+
+/* 일반 랭킹 */
+.rank-default .rank-medal {
+    color: #999;
+}
