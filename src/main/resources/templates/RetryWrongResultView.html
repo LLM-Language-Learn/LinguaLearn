@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>재도전 결과</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    p { margin-top: 10px; }
+    a { text-decoration: none; color: #007bff; }
+  </style>
+</head>
+<body>
+<h1>재도전 결과</h1>
+<p th:text="${retryResult}">결과 메시지</p>
+<div>
+  <a href="/wrongNote">오답노트로 돌아가기</a>
+</div>
+</body>
+</html>
