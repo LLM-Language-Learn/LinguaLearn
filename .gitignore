@@ -35,3 +35,4 @@ out/
 
 ### VS Code ###
 .vscode/
+src/main/resources/llm-lingualearn-firebase-adminsdk-fbsvc-730ed32982.json
