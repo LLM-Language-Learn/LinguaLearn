@@ -1,6 +1,7 @@
 package com.example.LinguaLearn.model;
 
 import com.google.cloud.firestore.annotation.DocumentId;
+import com.google.cloud.firestore.annotation.PropertyName;
 
 public class User {
     @DocumentId // Marks this field as the document ID
@@ -10,6 +11,8 @@ public class User {
     private String primaryLanguage; // 추가: 사용자 주 학습 언어
     private Integer dailyGoal; // 추가: 일일 학습 목표 (분)
     private Boolean pushNotification; // 추가: 푸시 알림 설정
+
+    @PropertyName("score")
     private int score;
 
     // Firestore requires a no-arg constructor
@@ -44,7 +47,10 @@ public class User {
     public Boolean getPushNotification() { return pushNotification; }
     public void setPushNotification(Boolean pushNotification) { this.pushNotification = pushNotification; }
 
+    @PropertyName("score")
     public int getScore() { return score; }
+
+    @PropertyName("score")
     public void setScore(int score) { this.score = score; }
 
     @Override
@@ -56,6 +62,7 @@ public class User {
                 ", primaryLanguage='" + primaryLanguage + '\'' +
                 ", dailyGoal=" + dailyGoal +
                 ", pushNotification=" + pushNotification +
+                ", score=" + score +
                 '}';
     }
 }

@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultElement = document.getElementById('result');
     const scoreUpdateElement = document.getElementById('score-update');
     const nextButton = document.getElementById('next-btn');
-    
+
+
     // 언어 선택 처리
     window.selectLanguage = function(language) {
         currentLanguage = language;

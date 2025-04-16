@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import com.example.LinguaLearn.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import com.example.LinguaLearn.model.User;
 import com.example.LinguaLearn.service.WordService;
 
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -32,7 +34,10 @@ public class ImageQuizController {
 
     private static final Logger logger = LoggerFactory.getLogger(ImageQuizController.class);
     private static final String UNSPLASH_API_KEY = "lim93_dY_RdGEV_J7rHtAwbASLPE6N4PgC8vKRUkxNs";
-    
+
+    @Autowired
+    private UserService userService;
+
     @Autowired
     private WordService wordService;
     
@@ -93,7 +98,7 @@ public class ImageQuizController {
             return ResponseEntity.internalServerError().body(Map.of("error", "서버 오류: " + e.getMessage()));
         }
     }
-    
+
     @PostMapping("/api/quiz/score")
     @ResponseBody
     public ResponseEntity<?> updateScore(HttpSession session) {
@@ -101,16 +106,27 @@ public class ImageQuizController {
         if (user == null) {
             return ResponseEntity.status(401).body(Map.of("success", false, "message", "로그인이 필요합니다."));
         }
-        
+
         try {
-            // In a real implementation, you would update the user's score in the database
-            // For now, let's just return success
-            return ResponseEntity.ok(Map.of("success", true, "message", "점수가 업데이트되었습니다."));
+            // 사용자 점수 업데이트 (정답 맞출 때마다 1점 추가)
+            User updatedUser = userService.updateUserScore(user.getUid(), 1);
+
+            // 세션 업데이트
+            session.setAttribute("user", updatedUser);
+
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "점수가 업데이트되었습니다.",
+                    "currentScore", updatedUser.getScore(),
+                    "addedPoints", 1
+            ));
         } catch (Exception e) {
             logger.error("Error updating user score", e);
             return ResponseEntity.internalServerError().body(Map.of(
-                "success", false, 
-                "message", "점수 업데이트 중 오류가 발생했습니다: " + e.getMessage()));
+                    "success", false,
+                    "message", "점수 업데이트 중 오류가 발생했습니다: " + e.getMessage(),
+                    "errorType", e.getClass().getSimpleName()
+            ));
         }
     }
 
@@ -146,4 +162,6 @@ public class ImageQuizController {
         Collections.shuffle(list);
         return list;
     }
+
+
 }

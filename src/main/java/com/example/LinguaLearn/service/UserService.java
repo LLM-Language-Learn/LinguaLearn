@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -109,5 +111,34 @@ public class UserService {
 
         logger.info("User settings updated at: {}", future.get().getUpdateTime());
         return existingUser;
+    }
+
+    public User updateUserScore(String uid, int scoreToAdd) throws ExecutionException, InterruptedException {
+        try {
+            // 트랜잭션을 사용하여 atomic 업데이트 수행
+            ApiFuture<User> future = firestore.runTransaction(transaction -> {
+                DocumentReference docRef = firestore.collection("Users").document(uid);
+                DocumentSnapshot snapshot = transaction.get(docRef).get();
+
+                if (!snapshot.exists()) {
+                    throw new RuntimeException("User document does not exist: " + uid);
+                }
+
+                User user = snapshot.toObject(User.class);
+                int newScore = user.getScore() + scoreToAdd;
+
+                // score 필드만 업데이트
+                transaction.update(docRef, "score", newScore);
+
+                // 업데이트된 유저 객체 반환
+                user.setScore(newScore);
+                return user;
+            });
+
+            return future.get();
+        } catch (Exception e) {
+            logger.error("Failed to update score for user: " + uid, e);
+            throw e;
+        }
     }
 }
