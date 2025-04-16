@@ -1,46 +1,187 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <title>TOP 10 랭킹</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaLearn - TOP 10 랭킹</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
     <link rel="stylesheet" type="text/css" href="/css/ranking.css" />
 </head>
 <body>
-<div class="ranking-container">
-    <div class="ranking-title">🔥 TOP 10 랭킹 🔥</div>
+<!-- 헤더 -->
+<header class="header">
+    <div class="container header-container">
+        <div class="logo">
+            <h1><i class="fas fa-language"></i> LinguaLearn</h1>
+        </div>
+        <!-- 기본 네비게이션 메뉴 (이미지에 표시된 것과 동일) -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="/">홈</a></li>
+                <li><a href="/quiz">단어 퀴즈</a></li>
+                <li><a href="/translate">번역 도구</a></li>
+                <li><a href="/recommended">추천 단어</a></li>
+                <li><a href="/ranking" class="active">랭킹</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <div class="theme-switcher">
+                <button id="theme-toggle">
+                    <i class="fas fa-sun light-icon"></i>
+                    <i class="fas fa-moon dark-icon"></i>
+                </button>
+                <div class="theme-dropdown">
+                    <button data-theme="light">라이트</button>
+                    <button data-theme="dark">다크</button>
+                    <button data-theme="blue">블루</button>
+                    <button data-theme="green">그린</button>
+                </div>
+            </div>
+            <a href="/login" class="btn btn-primary login-btn">로그인</a>
+        </div>
+    </div>
+</header>
 
-    <div th:each="rank, stat : ${rankings}">
-        <div th:if="${stat.index == 0}" class="rank-card rank-1">
-            <div class="rank-medal">🥇</div>
-            <div class="rank-info">
-                <div class="rank-email" th:text="${rank.email}"></div>
-                <div class="rank-score" th:text="${rank.score + ' 점'}"></div>
-            </div>
-        </div>
-        <div th:if="${stat.index == 1}" class="rank-card rank-2">
-            <div class="rank-medal">🥈</div>
-            <div class="rank-info">
-                <div class="rank-email" th:text="${rank.email}"></div>
-                <div class="rank-score" th:text="${rank.score + ' 점'}"></div>
-            </div>
-        </div>
-        <div th:if="${stat.index == 2}" class="rank-card rank-3">
-            <div class="rank-medal">🥉</div>
-            <div class="rank-info">
-                <div class="rank-email" th:text="${rank.email}"></div>
-                <div class="rank-score" th:text="${rank.score + ' 점'}"></div>
-            </div>
-        </div>
+<!-- 상단 탭 메뉴 (이미지에서 보이는 형태) -->
+<div class="tab-navigation">
+    <div class="container">
+        <ul class="tabs">
+            <li><a href="/">홈</a></li>
+            <li><a href="/quiz">단어 퀴즈</a></li>
+            <li><a href="/translate">번역 도구</a></li>
+            <li><a href="/recommended">추천 단어</a></li>
+            <li><a href="/ranking" class="active">랭킹</a></li>
+        </ul>
+    </div>
+</div>
 
-        <!-- 4위부터 10위까지 -->
-        <div th:if="${stat.index >= 3}" class="rank-card rank-default">
-            <div class="rank-medal" th:text="${stat.index + 1} + '위'"></div>
-            <div class="rank-info">
-                <div class="rank-email" th:text="${rank.email}"></div>
-                <div class="rank-score" th:text="${rank.score + ' 점'}"></div>
+<!-- 메인 콘텐츠 -->
+<main class="main-content">
+    <div class="container">
+        <div class="ranking-container">
+            <div class="ranking-title"><i class="fas fa-trophy"></i> TOP 10 랭킹 <i class="fas fa-trophy"></i></div>
+
+            <div th:each="rank, stat : ${rankings}">
+                <div th:if="${stat.index == 0}" class="rank-card rank-1">
+                    <div class="rank-medal">🥇</div>
+                    <div class="rank-info">
+                        <div class="rank-email" th:text="${rank.email}"></div>
+                        <div class="rank-score" th:text="${rank.score + ' 점'}"></div>
+                    </div>
+                </div>
+                <div th:if="${stat.index == 1}" class="rank-card rank-2">
+                    <div class="rank-medal">🥈</div>
+                    <div class="rank-info">
+                        <div class="rank-email" th:text="${rank.email}"></div>
+                        <div class="rank-score" th:text="${rank.score + ' 점'}"></div>
+                    </div>
+                </div>
+                <div th:if="${stat.index == 2}" class="rank-card rank-3">
+                    <div class="rank-medal">🥉</div>
+                    <div class="rank-info">
+                        <div class="rank-email" th:text="${rank.email}"></div>
+                        <div class="rank-score" th:text="${rank.score + ' 점'}"></div>
+                    </div>
+                </div>
+
+                <!-- 4위부터 10위까지 -->
+                <div th:if="${stat.index >= 3}" class="rank-card rank-default">
+                    <div class="rank-medal" th:text="${stat.index + 1} + '위'"></div>
+                    <div class="rank-info">
+                        <div class="rank-email" th:text="${rank.email}"></div>
+                        <div class="rank-score" th:text="${rank.score + ' 점'}"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</main>
+
+<!-- 푸터 -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2><i class="fas fa-language"></i> LinguaLearn</h2>
+                <p>언어 학습의 모든 것, 언제 어디서나 손쉽게 배우세요.</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h3>둘러보기</h3>
+                    <ul>
+                        <li><a href="/">홈</a></li>
+                        <li><a href="/quiz">단어 퀴즈</a></li>
+                        <li><a href="/translate">번역 도구</a></li>
+                        <li><a href="/recommended">추천 단어</a></li>
+                        <li><a href="/ranking">랭킹</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h3>고객 지원</h3>
+                    <ul>
+                        <li><a href="/faq">자주 묻는 질문</a></li>
+                        <li><a href="/contact">문의하기</a></li>
+                        <li><a href="/feedback">피드백</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h3>법적 정보</h3>
+                    <ul>
+                        <li><a href="/terms">이용약관</a></li>
+                        <li><a href="/privacy">개인정보처리방침</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 LinguaLearn. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- 자바스크립트 -->
+<script>
+    // 테마 토글 기능
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeDropdown = document.querySelector('.theme-dropdown');
+        const themeButtons = document.querySelectorAll('.theme-dropdown button');
+
+        // 테마 전환 버튼 클릭 시 드롭다운 표시
+        themeToggle.addEventListener('click', function() {
+            themeDropdown.style.display = themeDropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // 테마 선택 시 적용
+        themeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const theme = this.getAttribute('data-theme');
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                themeDropdown.style.display = 'none';
+            });
+        });
+
+        // 저장된 테마 적용
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+
+        // 클릭 외부 영역 감지하여 드롭다운 닫기
+        document.addEventListener('click', function(event) {
+            if (!themeToggle.contains(event.target) && !themeDropdown.contains(event.target)) {
+                themeDropdown.style.display = 'none';
+            }
+        });
+    });
+</script>
 </body>
 </html>
