@@ -1,40 +1,98 @@
-body {
-    font-family: 'Pretendard', sans-serif;
-    background-color: #f2f4f6;
-    padding: 2rem;
+/* 랭킹 페이지 스타일 */
+.main-content {
+    flex: 1;
+    padding: 2rem 0;
 }
 
+/* 상단 탭 네비게이션 */
+.tab-navigation {
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 4px var(--shadow);
+}
+
+.tabs {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tabs li {
+    margin: 0;
+}
+
+.tabs a {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.tabs a:hover {
+    color: var(--accent);
+}
+
+.tabs a.active {
+    color: var(--accent);
+    border-bottom: 3px solid var(--accent);
+}
+
+/* 랭킹 컨테이너 */
 .ranking-container {
-    max-width: 480px;
+    max-width: 600px;
     margin: 0 auto;
+    background-color: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px var(--shadow);
 }
 
 .ranking-title {
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.ranking-title i {
+    color: var(--accent);
 }
 
 .rank-card {
     display: flex;
     align-items: center;
-    background-color: white;
-    padding: 1rem;
-    margin-bottom: 0.8rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: var(--card-bg);
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border);
 }
 
 .rank-card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px var(--shadow);
+    border-color: var(--accent);
 }
 
 .rank-medal {
     font-size: 1.8rem;
-    margin-right: 1rem;
+    margin-right: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    flex-shrink: 0;
 }
 
 .rank-info {
@@ -42,29 +100,142 @@ body {
 }
 
 .rank-email {
-    font-weight: bold;
-    font-size: 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
 }
 
 .rank-score {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+}
+
+.rank-score::before {
+    content: '\f005';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    margin-right: 0.5rem;
+    color: var(--accent);
     font-size: 0.9rem;
-    color: #666;
 }
 
 /* 1위~3위 전용 스타일 */
 .rank-1 {
-    background-color: #fff6cc;
+    background-color: rgba(255, 215, 0, 0.1);
+    border-color: #ffd700;
+    position: relative;
+    overflow: hidden;
+}
+
+.rank-1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ffd700, #fff6a0, #ffd700);
 }
 
 .rank-2 {
-    background-color: #e5e5e5;
+    background-color: rgba(192, 192, 192, 0.1);
+    border-color: #c0c0c0;
+    position: relative;
+    overflow: hidden;
+}
+
+.rank-2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #c0c0c0, #e5e5e5, #c0c0c0);
 }
 
 .rank-3 {
-    background-color: #f5e1d8;
+    background-color: rgba(205, 127, 50, 0.1);
+    border-color: #cd7f32;
+    position: relative;
+    overflow: hidden;
+}
+
+.rank-3::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #cd7f32, #ebc396, #cd7f32);
 }
 
 /* 일반 랭킹 */
 .rank-default .rank-medal {
-    color: #999;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+/* 다크 테마 대응 */
+[data-theme="dark"] .rank-1 {
+    background-color: rgba(255, 215, 0, 0.15);
+}
+
+[data-theme="dark"] .rank-2 {
+    background-color: rgba(192, 192, 192, 0.15);
+}
+
+[data-theme="dark"] .rank-3 {
+    background-color: rgba(205, 127, 50, 0.15);
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .tabs {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .tabs a {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .ranking-container {
+        padding: 1.5rem;
+        margin: 0 1rem;
+    }
+
+    .ranking-title {
+        font-size: 1.5rem;
+    }
+
+    .main-nav {
+        display: none; /* 모바일에서는 상단 메뉴만 표시 */
+    }
+}
+
+@media (max-width: 576px) {
+    .rank-card {
+        padding: 1rem;
+    }
+
+    .rank-medal {
+        font-size: 1.5rem;
+        margin-right: 0.8rem;
+        width: 40px;
+    }
+
+    .rank-email {
+        font-size: 1rem;
+    }
+
+    .rank-score {
+        font-size: 0.9rem;
+    }
 }
